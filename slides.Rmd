@@ -52,20 +52,58 @@ Source: [leedscyclingcampaign.co.uk](http://www.leedscyclingcampaign.co.uk/CarFr
 
 ---
 
+background-image: url(road-casualties.png)
+background-size: cover
+class: center, top
+
 # Why transport?
+
+???
 
 - Fast growing source of energy use and pollution 
 - No 'upper limit' on use
 - Inequalities
-
---
-
 - Number 1 cause of death and injury among young people wide
-
 
 ---
 
 # Why transport planning with R?
+
+.pull-left[
+
+- Geographic data
+
+  - Strong geo community
+- Reproducibility
+  - Transport is inherently part of the democratic process 
+
+- Good transport decision making requires public understanding. R is outstanding at visualisation. 
+
+]
+
+--
+
+.pull-right[
+
+
+```{r, echo=FALSE, out.width="100%"}
+# img = webshot::webshot("https://journal.r-project.org/archive/2018/RJ-2018-053/index.html", vwidth = 800, vheight = 800, zoom = 2)
+# img
+knitr::include_graphics("stplanr-rjournal.png")
+```
+
+]
+
+## +There is a growing R-transport community
+
+<!-- list pkgs here -->
+
+???
+
+ R has a strong and cohesive spatial community
+ 
+ Transport is inherently part of the democratic desision-making process making transparency key. Reproducibility is a strength of R.
+
 
 ---
 
@@ -75,11 +113,11 @@ background-image: url(https://raw.githubusercontent.com/npct/pct-team/master/fig
 background-size: cover
 class: center, middle
 
-# Current transport software
-
 --
 
-(Source: Crispin Cooper, author of sDNA)
+# Current transport software
+
+## Credit: Crispin Cooper, author of C++ library sDNA
 
 ---
 
@@ -131,33 +169,33 @@ Getting help is vital for leaning/improving software
 
 "10-Hour Service Pack $2,000" (source: [caliper.com/tcprice.htm](https://www.caliper.com/tcprice.htm))
 
+<!-- --- -->
+
+<!-- # Online communities -->
+
+<!-- - [gis.stackexchange.com](https://gis.stackexchange.com/questions) has 21,314 questions  -->
+
+<!-- - [r-sig-geo](http://r-sig-geo.2731867.n2.nabble.com/) has 1000s of posts -->
+
+<!-- - RStudio's Discourse community has 65,000+ posts already! -->
+
+<!-- -- -->
+
+<!-- - No transport equivalent (e.g. earthscience.stackexchange.com is in beta) -->
+
+<!-- - Potential for a Discourse forum or similar: transport is not (just) GIS -->
+
+<!-- --- -->
+
+<!-- # Best way to get support is peer-to-peer: -->
+
+<!-- ![](rstudio-community.png) -->
+
+<!-- Source: https://community.rstudio.com/about -->
+
 ---
 
-# Online communities
-
-- [gis.stackexchange.com](https://gis.stackexchange.com/questions) has 21,314 questions 
-
-- [r-sig-geo](http://r-sig-geo.2731867.n2.nabble.com/) has 1000s of posts
-
-- RStudio's Discourse community has 65,000+ posts already!
-
---
-
-- No transport equivalent (e.g. earthscience.stackexchange.com is in beta)
-
-- Potential for a Discourse forum or similar: transport is not (just) GIS
-
----
-
-# Best way to get support is peer-to-peer:
-
-![](rstudio-community.png)
-
-Source: https://community.rstudio.com/about
-
----
-
-# A few prices
+# Transport planning is PRICEY $$$
 
 ```{r, echo=FALSE}
 knitr::include_graphics("price-transcad.png")
@@ -246,15 +284,20 @@ class: center, middle, inverse
 
 ---
 
-# Thanks for listening!
+class: center, bottom, inverse
+
+
+# Credits
 
 --
 
-A few links and references
-
 - Boyce, D.E., Williams, H.C.W.L., 2015. Forecasting Urban Travel: Past, Present and Future. Edward Elgar Publishing.
 
+--
+
 - The Propensity to Cycle Tool: http://www.pct.bike/ - Lovelace, R., Goodman, A., Aldred, R., Berkoff, N., Abbas, A., Woodcock, J., 2017. The Propensity to Cycle Tool: An open source online system for sustainable transport planning. Journal of Transport and Land Use 10. https://doi.org/10.5198/jtlu.2016.862
+
+--
 
 - Open source 'geocompr' book: Lovelace, R., Nowosad, J., Meunchow, J., 2019. Geocomputation with R. CRC Press.
 
