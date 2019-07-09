@@ -5,6 +5,7 @@ author: "Robin Lovelace, University of Leeds"
 date: "2019-07-10, [UseR 2019](http://user2019.r-project.org)"
 output:
   xaringan::moon_reader:
+    chakra: libs/remark-latest.min.js
     nature:
       highlightStyle: github
       highlightLines: true
@@ -12,11 +13,12 @@ output:
 # bibliography: /home/robin/allrefs.bib
 ---
 
+
 # Abstract
 
 Since the first release of R on CRAN, in 1997, its use in many fields has grown rapidly. Lai et al. (2019), for example, suggest that more than 50% of research articles published in Ecology use R in some way. Much like many ecological datasets, transport data tend to be large, diverse and have spatial and temporal attributes. Unlike Ecology, Transport Planning has been a slow adopter of R, with a much lower percentage of papers using the language. This raises the question: why? After exploring this question, in relation to dominant transport planning software products, the talk will sketch of what an open source transport planning 'ecosystem' could look like. Based on my own experience, of developing the stplanr package and teaching practitioners, the talk will discuss the importance of building ‘communities of practice', for transport planners making the switch to R. These observations relate to others promoting R in new environments, and link to the wider question of how to advocate for open source software in wider society.
 
-<!-- Context: in this session: -->
+<!-- Context: in this session: http://user2019.r-project.org/talk_schedule/ -->
 <!-- 14:00 		Movement & transport 	Rocio Joo -->
 <!-- 	Navigating through the R packages for movement 	Angela Li 	Ariane 1+2 	 -->
 <!-- 14:18 		Movement & transport 	Mohammad Mehdi Moradi -->
@@ -34,17 +36,29 @@ class: center, middle
 
 ---
 
+background-image: url(car-free-leeds.png)
+background-size: cover
+class: center, top
+
+--
+
 # A dream
 
-Source: www.leedscyclingcampaign.co.uk/CarFreeSundays
-
-
+Source: [leedscyclingcampaign.co.uk](www.leedscyclingcampaign.co.uk/CarFreeSundays)
 
 <!-- Add image from car free day in Leeds -->
 
 ---
 
 # Why transport?
+
+- Fast growing source of energy use and pollution 
+- No 'upper limit' on use
+- Inequalities
+
+--
+
+- Number 1 cause of death and injury among young people wide
 
 
 ---
@@ -94,7 +108,7 @@ Still dominates transport planning models (Boyce and Williams 2015)
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 tms = readr::read_csv("transport-software.csv")[1:5]
-tms = dplyr::arrange(tms, dplyr::desc(Citations))
+# tms = dplyr::arrange(tms, dplyr::desc(Citations))
 knitr::kable(tms, booktabs = TRUE, caption = "Sample of transport modelling software in use by practitioners. Note: citation counts based on searches for company/developer name, the product name and 'transport'. Data source: Google Scholar searches, October 2018.", format = "html")
 ```
 
@@ -224,118 +238,6 @@ background-size: cover
 class: center, middle, inverse
 
 # Code example / questions
-
---
-
-# Talk is cheap, show me the (working) code
-
---
-
-# Source: Linus Torvalds ([lkml.org](https://lkml.org/lkml/2000/8/25/132))
-
----
-
-# Context: trip to Tecklenburg
-
-<a data-flickr-embed="true" data-context="true"  href="https://www.flickr.com/photos/97888609@N02/32709087448/in/dateposted/" title="IMG_20190103_110055941"><img src="https://farm8.staticflickr.com/7877/32709087448_fbeafcc59c_z.jpg" width="640" height="360" alt="IMG_20190103_110055941"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
-
----
-
-# That we recorded on phone GPS
-
-And uploaded to OpenStreetMap
-
-- https://www.openstreetmap.org/user/RobinLovelace/traces/2882954
-
---
-
-```{r gif, echo=FALSE}
-knitr::include_graphics("https://user-images.githubusercontent.com/1825120/50651877-a62f7480-0f7c-11e9-96f2-b13fd6bbed76.gif")
-```
-
----
-
-# Loading the tracks
-
-```{r}
-library(sf)
-```
-
-
-```{r dl}
-u = "https://www.openstreetmap.org/trace/2882954/data"
-if(!file.exists("trace.gpx")) download.file(u, "trace.gpx")
-```
-
-```{r read}
-st_layers("trace.gpx")
-track = read_sf("trace.gpx", "tracks")
-track_points = read_sf("trace.gpx", "track_points")
-```
-
----
-
-### Static plotting
-
-```{r, out.width="50%", fig.show='hold', warning=FALSE}
-plot(track[1])
-plot(track_points)
-```
-
----
-
-### 'Data science' approach to transport modelling
-
-- Problem: gpx files do not always contain speed
-
-```{r}
-points2line_trajectory = function(p) {
-  c = st_coordinates(p)
-  i = seq(nrow(p) - 2)
-  l = purrr::map(i, ~ sf::st_linestring(c[.x:(.x + 1), ]))
-  s = purrr::map_dbl(i, function(x) {
-    geosphere::distHaversine(c[x, ], c[(x + 1), ]) /
-      as.numeric(p$time[x + 1] - p$time[x])
-  }
-  )
-  lfc = sf::st_sfc(l)
-  a = seq(length(lfc)) + 1 # sequence to subset
-  p_data = cbind(sf::st_set_geometry(p[a, ], NULL), s)
-  sf::st_sf(p_data, geometry = lfc)
-}
-```
-
-Source: [geocompr.github.io](https://geocompr.github.io/geocompkg/articles/gps-tracks.html)
-
----
-
-## Creating lines with attributes
-
-```{r}
-l = points2line_trajectory(p = track_points)
-plot(l["s"])
-```
-
----
-
-## All slow sections
-
-```{r}
-l_slow = l[l$s < 20, ]
-plot(l_slow["s"])
-```
-
----
-
-## Interactive plot!
-
-```{r, warning=FALSE, message=FALSE}
-library(tmap)
-ttm()
-tm_shape(l_slow) +
-  tm_lines(col = "s", palette = "magma", n = 9)
-```
-
 
 ---
 
