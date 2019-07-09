@@ -46,7 +46,7 @@ class: center, top
 
 # A dream
 
-Source: [leedscyclingcampaign.co.uk](www.leedscyclingcampaign.co.uk/CarFreeSundays)
+Source: [leedscyclingcampaign.co.uk](http://www.leedscyclingcampaign.co.uk/CarFreeSundays)
 
 <!-- Add image from car free day in Leeds -->
 
@@ -74,8 +74,6 @@ Source: [leedscyclingcampaign.co.uk](www.leedscyclingcampaign.co.uk/CarFreeSunda
 background-image: url(https://raw.githubusercontent.com/npct/pct-team/master/figures/sdna-san-fran.png)
 background-size: cover
 class: center, middle
-
-
 
 # Current transport software
 
