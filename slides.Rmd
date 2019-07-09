@@ -16,13 +16,44 @@ output:
 
 Since the first release of R on CRAN, in 1997, its use in many fields has grown rapidly. Lai et al. (2019), for example, suggest that more than 50% of research articles published in Ecology use R in some way. Much like many ecological datasets, transport data tend to be large, diverse and have spatial and temporal attributes. Unlike Ecology, Transport Planning has been a slow adopter of R, with a much lower percentage of papers using the language. This raises the question: why? After exploring this question, in relation to dominant transport planning software products, the talk will sketch of what an open source transport planning 'ecosystem' could look like. Based on my own experience, of developing the stplanr package and teaching practitioners, the talk will discuss the importance of building ‘communities of practice', for transport planners making the switch to R. These observations relate to others promoting R in new environments, and link to the wider question of how to advocate for open source software in wider society.
 
+<!-- Context: in this session: -->
+<!-- 14:00 		Movement & transport 	Rocio Joo -->
+<!-- 	Navigating through the R packages for movement 	Angela Li 	Ariane 1+2 	 -->
+<!-- 14:18 		Movement & transport 	Mohammad Mehdi Moradi -->
+<!-- 	Classes, methods and data analysis for trajectories 	Angela Li 	Ariane 1+2 	 -->
+<!-- 14:36 		Movement & transport 	Christine Thomas-Agnan -->
+<!-- 	Modelling spatial flows with R 	Angela Li 	Ariane 1+2 	 -->
+<!-- 14:54 		Movement & transport 	Robin Lovelace -->
+<!-- 	R for Transport Planning 	Angela Li 	Ariane 1+2 -->
 
 ---
-
 
 background-image: url(https://raw.githubusercontent.com/npct/pct-team/master/figures/sdna-san-fran.png)
 background-size: cover
 class: center, middle
+
+---
+
+# A dream
+
+Source: www.leedscyclingcampaign.co.uk/CarFreeSundays
+
+
+
+<!-- Add image from car free day in Leeds -->
+
+---
+
+# Why transport?
+
+
+---
+
+# Why transport planning with R?
+
+---
+
+
 
 # Current transport software
 
