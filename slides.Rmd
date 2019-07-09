@@ -96,11 +96,9 @@ knitr::include_graphics("fourstage.png")
 Still dominates transport planning models (Boyce and Williams 2015)
 ]
 
-
 --
 
-
-### Impacting the durrent software landscape
+### Software landscape
 
 - Dominated by a few proprietary products
 
@@ -117,6 +115,7 @@ Still dominates transport planning models (Boyce and Williams 2015)
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 tms = readr::read_csv("transport-software.csv")[1:5]
 # tms = dplyr::arrange(tms, dplyr::desc(Citations))
+tms = tms[order(tms$Citations, decreasing = TRUE),]
 knitr::kable(tms, booktabs = TRUE, caption = "Sample of transport modelling software in use by practitioners. Note: citation counts based on searches for company/developer name, the product name and 'transport'. Data source: Google Scholar searches, October 2018.", format = "html")
 ```
 
