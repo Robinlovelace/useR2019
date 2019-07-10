@@ -13,6 +13,12 @@ output:
 # bibliography: /home/robin/allrefs.bib
 ---
 
+```{r, include=FALSE}
+library(tidyverse)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
 # Abstract
 
 <font color="grey"></font>
@@ -52,11 +58,47 @@ Source: [leedscyclingcampaign.co.uk](http://www.leedscyclingcampaign.co.uk/CarFr
 
 ---
 
+**The reality**: Source: [photo from run this morning](https://www.flickr.com/photos/97888609@N02/48247197386/in/album-72157709543796761/lightbox/)
+
+<a data-flickr-embed="true" data-context="true"  href="https://www.flickr.com/photos/97888609@N02/48247197386/in/album-72157709543796761/lightbox/" title="IMG_20190710_063516"><img src="https://live.staticflickr.com/65535/48247197386_391eb748b5_c.jpg" width="800" height="600" alt="IMG_20190710_063516"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
+
+```{r, echo=FALSE, eval=FALSE}
+# remotes::install_github("jimhester/flickrr")
+# flickrr::authenticate()
+# 
+# flickr_GET("flickr.photo.search", text = "UseR2016")
+```
+
+---
+
+```{r, echo=FALSE, out.width="50%", fig.cap=""}
+knitr::include_graphics("https://pbs.twimg.com/media/DOH94nXUIAAgcll.jpg")
+```
+
+Amsterdam in the 1970s. Via [Brent Toderian](https://twitter.com/BrentToderian)
+
+---
+
+```{r, echo=FALSE, out.width="70%", fig.cap=""}
+knitr::include_graphics("https://pbs.twimg.com/media/DJaWCo0U8AAzQGW.jpg:large")
+```
+
+Amsterdam in the 2010s [Brent Toderian](https://twitter.com/BrentToderian)
+
+For more, see historical photos of Amsterdam, e.g. from [fastcompany.com](https://www.fastcompany.com/3052699/these-historical-photos-show-how-amsterdam-turned-itself-into-a-bike-riders-paradise)
+
+
+---
+
 background-image: url(road-casualties.png)
 background-size: cover
-class: center, top
+class: left, bottom
 
-# Why transport?
+Road casualty rates worldwide. Source: WHO. Code: [Robinlovelace/useR2019](https://github.com/Robinlovelace/useR2019)
+
+Transport is the number 1 cause of death among young people (WHO [2018](https://www.who.int/violence_injury_prevention/road_safety_status/2018/en/))
+
+
 
 ???
 
@@ -67,7 +109,36 @@ class: center, top
 
 ---
 
+# Transport emissions
+
+> With-out  aggressive  and  sustained  mitigation  policies  being  implemented,  transport  sector  emissions  could  increase  faster  than  in  the  other  energy end-use sectors and could lead to more than a doubling of CO2 emissions by 2050. ([IPCC, 2015](https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_full.pdf))
+
+--
+
+Transport is hard to decarbonise  (Creutzig et al. [2015](https://science.sciencemag.org/content/350/6263/911))
+
+--
+
+Technological change is slow and uncertain.
+Demand reduction is required. 
+
+International Energy Agency's optimistic '[SDS](https://www.iea.org/weo/weomodel/sds/)' scenario:
+
+```{r, message=FALSE, echo=FALSE, fig.height=4}
+transport_data = read_csv("transport-emissions-iea.csv")
+transport_data$scenario = "Observed"
+
+g = ggplot(transport_data) +
+  geom_line(aes(x = year, y = gtco2))
+plotly::ggplotly(g)
+```
+
+
+---
+
 # Why transport planning with R?
+
+- Integration of most transport planning tasks into a single workflow. For example, the Propensity to Cycle Tool ([www.pct.bike](http://www.pct.bike/)) (Lovelace et al. 2017; Goodman et al. 2019)
 
 .pull-left[
 
@@ -104,8 +175,134 @@ knitr::include_graphics("stplanr-rjournal.png")
  
  Transport is inherently part of the democratic desision-making process making transparency key. Reproducibility is a strength of R.
 
+---
+
+
+background-image: url(https://raw.githubusercontent.com/moveability/moveability/master/demo-lines.png)
+background-size: cover
+class: center, middle, inverse
+
+# The R for transport landscape
+
+Source [github.com/moveability/moveability](https://github.com/moveability/moveability)
 
 ---
+
+### An urban transport hierarchy ([www.smartertransport.uk](https://www.smartertransport.uk/the-urban-transport-hierarchy-defined/))
+
+![](https://www.smartertransport.uk/wp-content/uploads/2019/05/Urban-transport-hierarchy-with-costs.png)
+
+---
+
+# The R transport ecosystem by mode
+
+.pull-left[
+
+
+Walking
+
+- [`moveability`](https://github.com/moveability/moveability)
+- [walkscoreAPI](https://cran.r-project.org/package=walkscoreAPI)
+- [walkalytics](https://github.com/zumbov2/walkalytics) 
+
+Cycling
+
+- [cyclestreets](https://cran.r-project.org/package=cyclestreets)
+- [bikedata](https://github.com/ropensci/bikedata)
+- [cycleRtools](https://cran.r-project.org/web/packages/cycleRtools/vignettes/cycling_data_analysis.html) (sport cycling)
+
+Public transport
+
+- [tidytransit](https://github.com/r-transit/tidytransit)
+
+Multi-modal transport
+
+- [openrouteservice](https://github.com/GIScience/openrouteservice-r)
+- [opentriplanner](https://github.com/ITSLeeds/opentripplanner)
+
+]
+
+--
+
+.pull-right[
+
+```{r, echo=TRUE, eval=FALSE}
+# To install these packages:
+
+install.packages(
+  "walkscoreAPI",
+  "walkalytics",
+  "cyclestreets",
+  "bikedata",
+  "cycleRtools"
+  "tidytransit"
+  )
+
+remotes::install_github(
+  "moveability/moveability",
+  "itsleeds/opentripplanner",
+  "GIScience/openrouteservice-r"
+)
+
+```
+
+]
+
+---
+
+
+# Transport ecosystem by geographic level
+
+.pull-left[
+
+Area based analysis
+
+- [sf](https://github.com/r-spatial/sf)
+- [raster](https://cran.r-project.org/package=raster)
+- [INLA](https://paula-moraga.github.io/book-geospatial/) 
+
+Origin destination data
+
+- [stplanr](https://cran.r-project.org/package=raster)
+- [flows package](https://cran.r-project.org/web/packages/flows/vignettes/flows.html) 
+
+Routes
+
+- [trajectories](https://cran.r-project.org/package=raster)
+- Routing services 
+
+Route networks
+
+- [SpatialLinesNetwork](https://ropensci.github.io/stplanr/reference/SpatialLinesNetwork.html) class
+- [sfnetworks](https://github.com/luukvdmeer/sfnetworks) - upcoming blog post: github.com/spnethack/spnethack
+
+]
+
+--
+
+.pull-right[
+
+```{r, echo=TRUE, eval=FALSE}
+# To install these packages:
+
+install.packages(
+  "sf",
+  "raster",
+  "stplanr",
+  "flows"
+  )
+
+remotes::install_github(
+  "luukvdmeer/sfnetworks"
+)
+
+```
+
+Useful guiding principle in Transport Planning (see [transport](https://geocompr.robinlovelace.net/transport.html) chapter in *Geocomputation with R*)
+
+- Note: there are many other packages for transport planning- not comprehensive lists
+
+]
 
 ---
 
@@ -121,12 +318,12 @@ class: center, middle
 
 ---
 
-.pull-left[
+.right-column[
 
 ### The four stage model
 
 ```{r, echo=FALSE}
-knitr::include_graphics("fourstage.png")
+knitr::include_graphics("https://www.researchgate.net/profile/Marek_Drliciak/publication/271423569/figure/fig1/AS:562670382350336@1511162481936/The-classic-four-stage-transport-model-4.png")
 ```
 
 Still dominates transport planning models (Boyce and Williams 2015)
@@ -163,11 +360,14 @@ Getting help is vital for leaning/improving software
 
 --
 
-![](https://media.giphy.com/media/6HtgBlXu1TIac/giphy.gif)
+```{r, eval=FALSE}
+webshot::webshot("https://area51.stackexchange.com/proposals/121498/transport-planning", "transport-planning-proposal.png")
+```
 
---
+```{r}
+knitr::include_graphics("transport-planning-proposal.png")
+```
 
-"10-Hour Service Pack $2,000" (source: [caliper.com/tcprice.htm](https://www.caliper.com/tcprice.htm))
 
 <!-- --- -->
 
@@ -195,10 +395,13 @@ Getting help is vital for leaning/improving software
 
 ---
 
-# Transport planning is PRICEY $$$
+# Transport planning is PRICEY
+
+
+"10-Hour Service Pack $2,000" (source: [caliper.com/tcprice.htm](https://www.caliper.com/tcprice.htm))
 
 ```{r, echo=FALSE}
-knitr::include_graphics("price-transcad.png")
+knitr::include_graphics("https://www.robinlovelace.net/presentations/price-transcad.png")
 ```
 
 Source: [google.com/search?q=transcad+price](https://www.google.com/search?q=transcad+price)
@@ -210,31 +413,67 @@ background-size: cover
 class: center, middle
 
 
-# Future transport software
+# Where next for R-transport?
 
 ---
 
-# Is already here I
+# Questions and suggestions
 
-- Example: the Propensity to Cycle Tool ([PCT.bike](http://www.pct.bike/)) (Lovelace et al. 2017)
+- Shift focus to communication of what's *already possible*
 
-```{r, echo=FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/npct/pct-team/master/figures/early.png")
-```
+- 'Dev story' of existing products: A 'Better planning in less time' article, building on Lowndes et al. ([2017](https://jules32.github.io/opensci-talk/short#1))? E.g. for ([PCT.bike](http://www.pct.bike/)) 
+
+- For developers: invite others to contribute and open issues
+
+- For potential developers: consider contributing to existing projects before creating new ones
+
+- For everyone: cite code, communicate, collaborate
+
+--
+
+## Questions
+
+- Is there a need for a 'transportverse'?
+- How can we best take this forward?
 
 ---
 
-# Is already here II
+class: center, bottom, inverse
 
-- Example: the Cycling Infrastructure Prioritisation Toolkit ([CyIPT.bike](https://www.cyipt.bike))
 
-```{r, echo=FALSE}
-knitr::include_graphics("https://www.cyipt.bike/images/existing-edit.png")
-```
+# Credits, references and further links
+
+--
+
+Boyce, D.E., Williams, H.C.W.L., 2015. Forecasting Urban Travel: Past, Present and Future. Edward Elgar Publishing.
+
+--
+
+The Propensity to Cycle Tool: http://www.pct.bike/ Lovelace, R., Goodman, A., Aldred, R., Berkoff, N., Abbas, A., Woodcock, J., 2017. The Propensity to Cycle Tool: An open source online system for sustainable transport planning. Journal of Transport and Land Use 10. https://doi.org/10.5198/jtlu.2016.862
+
+--
+
+Goodman, Anna, et al. "Scenarios of cycling to school in England, and associated health and carbon impacts: Application of the ‘Propensity to Cycle Tool’." Journal of Transport & Health 12 ([2019](https://www.sciencedirect.com/science/article/pii/S2214140518301257)): 263-278.
+
+--
+
+Open source 'geocompr' book: Lovelace, R., Nowosad, J., Meunchow, J., 2019. Geocomputation with R. CRC Press: https://geocompr.robinlovelace.net/
+
+--
+
+Lovelace, Robin, and Richard Ellison. "stplanr: A package for transport planning." The R Journal 10.2 ([2018](https://journal.r-project.org/archive/2018/RJ-2018-053/index.html)): 7-23. 
+
+--
+
+To get in touch: [GitHub](https://github.com/robinlovelace/), [Twitter](https://twitter.com/robinlovelace),  or email at r. lovelace. at leeds dot ac. uk!
+
+--
+
+Safe travels!
 
 ---
 
-# Is already here III
+# Other things: future of transport planning
 
 - Example: StreetMix ([streetmix.net](https://streetmix.net/))
 
@@ -244,7 +483,7 @@ knitr::include_graphics("http://1p40p3gwj70rhpc423s8rzjaz-wpengine.netdna-ssl.co
 
 ---
 
-# Sumo vs netlogo
+# Sumo and netlogo
 
 ```{r, echo=FALSE, out.width="70%"}
 knitr::include_graphics("https://user-images.githubusercontent.com/1825120/46748345-41c98580-ccab-11e8-8093-b265bd36f639.gif")
@@ -267,42 +506,8 @@ Source: [github.com/nldoc/nlrx](https://github.com/nldoc/nlrx)
 ### Gamification
 
 ```{r, echo=FALSE}
-knitr::include_graphics("citybound.png")
+knitr::include_graphics("https://www.robinlovelace.net/presentations/citybound.png")
 ```
 
 - Completely open source, written in [rust](https://github.com/citybound/citybound)
 - Source: video at https://aeplay.org/citybound
-
----
-
-
-background-image: url(https://media.giphy.com/media/OMeGDxdAsMPzW/giphy.gif)
-background-size: cover
-class: center, middle, inverse
-
-# Code example / questions
-
----
-
-class: center, bottom, inverse
-
-
-# Credits
-
---
-
-- Boyce, D.E., Williams, H.C.W.L., 2015. Forecasting Urban Travel: Past, Present and Future. Edward Elgar Publishing.
-
---
-
-- The Propensity to Cycle Tool: http://www.pct.bike/ - Lovelace, R., Goodman, A., Aldred, R., Berkoff, N., Abbas, A., Woodcock, J., 2017. The Propensity to Cycle Tool: An open source online system for sustainable transport planning. Journal of Transport and Land Use 10. https://doi.org/10.5198/jtlu.2016.862
-
---
-
-- Open source 'geocompr' book: Lovelace, R., Nowosad, J., Meunchow, J., 2019. Geocomputation with R. CRC Press.
-
-
-- The Cycling Infrastructure Prioritisation Toolkit: https://www.cyipt.bike/
-
-- Pebesma, E., 2018. Simple Features for R: Standardized Support for Spatial Vector Data. The R Journal.
-
